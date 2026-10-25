@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KainTayo - Filipino Recipes</title>
+<meta name="description" content="Discover Filipino recipes made from the ingredients already in your kitchen, save bookmarks, and share dishes with the community." />
+<meta property="og:title" content="KainTayo - Filipino Recipes" />
+<meta property="og:description" content="Discover Filipino recipes made from the ingredients already in your kitchen, save bookmarks, and share dishes with the community." />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<!-- ===== LANDING ===== -->
+<section id="landing" class="landing">
+  <div class="landing-inner">
+    <h1>Tara,<br><span>KainTayo!</span></h1>
+    <p>Discover Filipino recipes made from the ingredients already in your kitchen, and share your own family favorites with people across the Philippines.</p>
+    <button class="cta" id="enterApp">Find Recipes Now <i>→</i></button>
+  </div>
+</section>
+
+<!-- ===== APP SHELL ===== -->
+<div id="app" class="app" hidden>
+  <button class="burger" id="burger" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 18L20 18" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/><path d="M4 12L20 12" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/><path d="M4 6L20 6" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/></svg></button>
+  <div class="scrim" id="scrim"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="brand"><b>Kain<em>Tayo</em></b><small>Filipino Recipes</small></div>
+    <nav>
+      <button data-nav="find" class="active">Find recipes</button>
+      <button data-nav="community">Community</button>
+      <button data-nav="profile">Profile</button>
+    </nav>
+    <div class="side-foot" id="sideFoot"></div>
+  </aside>
+
+  <main>
+    <!-- Find recipes -->
+    <section data-view="find">
+      <header class="hero">
+        <p class="eyebrow" id="greeting">Magandang gabi!</p>
+        <h2>Cook anything from your <span>kitchen ingredients</span></h2>
+        <p class="sub">Ano'ng ulam ngayon?</p>
+        <div class="search-card">
+          <h3>What's in your kitchen?</h3>
+          <div class="search-row">
+            <input id="ingInput" placeholder="Type an ingredient and press Enter…" autocomplete="off">
+            <button class="btn gold" id="searchBtn">Search Recipes</button>
+          </div>
+          <div class="chips-row" id="addedRow" hidden><span>Added:</span><div id="added"></div></div>
+          <div class="chips-row"><span>Quick add:</span><div id="quick"></div></div>
+        </div>
+      </header>
+      <div class="content">
+        <div class="head-row">
+          <div><h2 class="h">Recipes you can cook</h2><p class="muted" id="resultSub">Sorted by best match to your ingredients.</p></div>
+          <div class="filters" id="filters"></div>
+        </div>
+        <div class="grid" id="recipeGrid"></div>
+      </div>
+    </section>
+
+    <!-- Community -->
+    <section data-view="community" hidden>
+      <div class="content">
+        <div class="head-row">
+          <div><h2 class="h">Community</h2><p class="muted">Recipes shared by kababayans across the Philippines</p></div>
+          <button class="btn orange" id="shareBtn">+ Ibahagi ang Lutuin</button>
+        </div>
+        <div class="feed" id="feed"></div>
+      </div>
+    </section>
+
+    <!-- Profile -->
+    <section data-view="profile" hidden>
+      <div class="profile">
+        <div class="p-side">
+          <div class="p-head">
+            <div class="avatar big" id="pAvatar"></div>
+            <h3 id="pName"></h3><small>Filipino Home Cook</small>
+            <div class="stats"><div><b id="pBm">0</b>Bookmarks</div><div><b id="pSh">0</b>Shared</div></div>
+          </div>
+          <div class="p-menu"><button class="active">Mga Bookmark</button></div>
+          <button class="logout" id="logoutBtn">Mag-logout</button>
+        </div>
+        <div class="p-main">
+          <h2 class="h">Mga Naka-save na Recipe</h2>
+          <div class="grid" id="bmGrid"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- ===== MODALS ===== -->
+<div class="modal" id="recipeModal" hidden><div class="dialog wide" id="rDialog" role="dialog" aria-modal="true" aria-labelledby="rTitle"></div></div>
+
+<div class="modal" id="authModal" hidden>
+  <div class="dialog">
+    <div class="m-head green"><h3 id="authTitle">Welcome back!</h3><p id="authSub"></p></div>
+    <div class="tabs"><button data-tab="login" class="active">Log In</button><button data-tab="signup">Sign Up</button></div>
+    <form id="authForm" novalidate>
+      <input id="fUser" placeholder="Username" hidden>
+      <input id="fEmail" type="email" placeholder="Email address" required>
+      <input id="fPass" type="password" placeholder="Password" required minlength="6">
+      <p class="err" id="authErr" role="alert"></p>
+      <button class="btn green full" id="authSubmit">Tuloy na! →</button>
+      <p class="swap" id="authSwap"></p>
+    </form>
+  </div>
+</div>
+
+<div class="modal" id="shareModal" hidden>
+  <div class="dialog">
+    <div class="m-head orange"><div><h3>Share your own recipe</h3><p>Share your recipe with the community</p></div><button class="x" data-close aria-label="Close">✕</button></div>
+    <form id="shareForm" novalidate>
+      <input id="sName" placeholder="Recipe name (e.g. Lola's Kare-Kare)" required>
+      <div class="two"><input id="sRegion" placeholder="Your region (e.g. Ilocos Norte)" required><input id="sTime" placeholder="Cook time (e.g. 45 min)"></div>
+      <textarea id="sDesc" rows="3" placeholder="Tell us about your recipe…" required></textarea>
+      <label class="drop" id="drop"><input type="file" id="sFile" accept="image/png,image/jpeg" hidden><span id="dropIcon">📷</span><b id="dropText">Click to add a photo</b><small>JPG, PNG up to 10MB</small></label>
+      <p class="err" id="shareErr" role="alert"></p>
+      <button class="btn orange full">I-post na!</button>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+<script src="/app.js"></script>
+</body>
+</html>

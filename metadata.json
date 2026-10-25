@@ -1,0 +1,6 @@
+{
+  "name": "KainTayo - Filipino Recipes",
+  "description": "Discover Filipino recipes made from the ingredients already in your kitchen, save bookmarks, and share dishes with the community.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
